@@ -59,18 +59,18 @@ export class TicketService {
         ticket.handleAt = new Date();
 
         this.workingOnTickets.unshift({ ...ticket });
+        this.onTicketNumberChanged();
 
-        //TODO: WS
 
         return { status: 'OK', ticket }
     }
 
     public onFinishedTicket(id: string) {
         const ticket = this.tickets.find(t => t.id === id);
-
         if (!ticket) return { status: 'error', message: 'Ticket no encontrado' };
 
         this.tickets.map(ticket => {
+
             if (ticket.id === id) {
                 ticket.done = true;
             }
